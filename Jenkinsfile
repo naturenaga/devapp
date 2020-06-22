@@ -1,34 +1,13 @@
-pipeline {
-  environment {
-    registry = "gustavoapolinario/docker-test"
-    registryCredential = 'dockerhub'
-    dockerImage = ''
+node {
+  stage 'Checkout'
+  git 'https://github.com/naturenaga/devapp.git'
+  
+ 
+  stage 'Docker build'
+  docker.build('demo')
+ 
+  stage 'Docker push'
+  docker.withRegistry('https://1234567890.dkr.ecr.us-east-1.amazonaws.com', 'ecr_access_credential') {
+    docker.image('demo').push('latest')
   }
-  agent any
-  stages {
-    stage('Cloning Git') {
-      steps {
-        git 'https://github.com/naturenaga/devapp.git'
-      }
-    }
-    stage('Building image') {
-      steps{
-        script {
-          dockerImage = docker.build registry + ":$BUILD_NUMBER"
-        }
-      }
-    }
-    stage('Deploy Image') {
-      steps{
-        script {
-          docker.withRegistry( '', registryCredential ) {
-            dockerImage.push()
-          }
-        }
-      }
-    }
-    stage('Remove Unused docker image') {
-      steps{
-        sh "docker rmi $registry:$BUILD_NUMBER"
-      }
 }
