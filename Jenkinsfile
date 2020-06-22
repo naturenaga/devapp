@@ -32,10 +32,6 @@ pipeline {
         }
       }
     }
-	post
-		always
-		{
-			sh "docker rmi $IMAGE | true"
-		}
+
   }
 }
