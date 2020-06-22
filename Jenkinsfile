@@ -5,7 +5,7 @@ pipeline {
 	PROJECT = "DEVAPP"
 	IMAGE = "$PROJECT:$VERSION"
 	ECRURL = "https://045368729820.dkr.ecr.us-east-1.amazonaws.com/dev-app"
-	ECRCRED = "ecr:us-east-1:awscredentials"
+	ECRCRED = "ecr_access_credential"
     
   }
 
