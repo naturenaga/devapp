@@ -7,7 +7,7 @@ pipeline {
 
         stage('build docker image') {
             steps {
-                sh "docker build --no-cache --iidfile image-id"
+                sh "docker build --no-cache --iidfile image-id ."
             }
         }
 
