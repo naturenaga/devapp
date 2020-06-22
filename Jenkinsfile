@@ -1,10 +1,39 @@
-node {
- 
-  stage 'Docker build'
-  docker.build('demo')
- 
-  stage 'Docker push'
-  docker.withRegistry('https://1234567890.dkr.ecr.us-east-1.amazonaws.com', 'ecr_access_credential') {
-    docker.image('demo').push('latest')
+pipeline {
+  agent any
+  environment {
+	VERSION = "${BUILD_NUMBER}"
+	PROJECT = "DEVAPP"
+	IMAGE = "$PROJECT:$VERSION"
+	ECRURL = "https://045368729820.dkr.ecr.us-east-1.amazonaws.com/dev-app"
+	ECRCRED = "ecr:us-east-1:awscredentials"
+    
   }
-}
+
+  stages {
+    stage('GitSCM') {
+      steps {
+        git 'https://github.com/naturenaga/devapp.git'
+
+      }
+    }
+    stage('Building image') {
+      steps{
+        script {
+          docker.build{"$IMAGE")
+        }
+      }
+    }
+    stage('Push Image') {
+      steps{
+        script {
+          docker.withRegistry(ECRURL, ECRCRED) {
+            docker.image(IMAGE).push()
+          }
+        }
+      }
+    }
+	post
+		always
+		{
+			sh "docker rmi $IMAGE | true"
+		}
