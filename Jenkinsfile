@@ -1,7 +1,4 @@
 node {
-  stage 'Checkout'
-  git 'https://github.com/naturenaga/devapp.git'
-  
  
   stage 'Docker build'
   docker.build('demo')
