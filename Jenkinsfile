@@ -19,7 +19,7 @@ pipeline {
     stage('Building image') {
       steps{
         script {
-          docker.build{"$IMAGE")
+          docker.build{"$IMAGE"}
         }
       }
     }
@@ -37,3 +37,5 @@ pipeline {
 		{
 			sh "docker rmi $IMAGE | true"
 		}
+  }
+}
