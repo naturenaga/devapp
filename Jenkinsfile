@@ -1,5 +1,5 @@
 pipeline {
-  agent any
+  
   environment {
 	VERSION = "${BUILD_NUMBER}"
 	PROJECT = "DEVAPP"
@@ -8,7 +8,8 @@ pipeline {
 	ECRCRED = "ecr_access_credential"
     
   }
-
+  
+  agent any
   stages {
     stage('GitSCM') {
       steps {
