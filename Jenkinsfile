@@ -12,10 +12,8 @@ pipeline {
   stages {
     stage('GitSCM') {
       steps {
-	    git branch: 'master',
-        credentialsId: 'a122b66f-5fc3-4287-850f-8f3d41a8b4ea',
-        url: 'https://github.com/naturenaga/devapp.git'
-        
+
+        git 'https://github.com/naturenaga/devapp.git'
 
       }
     }
