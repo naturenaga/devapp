@@ -34,10 +34,12 @@ pipeline {
 		   //"""
 		   //input message: 'Ready?', token: tok
 		   
+		   def tok = UUID.randomUUID().toString()
 		   mail to: 'naturenaga.j@gmail.com', subject: 'Ready to roll?', mimeType: 'text/html', body: """
-	  	   Please <a href="${env.JENKINS_URL} ${env.JOB_NAME} ${env.BUILD_NUMBER}">approve me</a>!
+	  	   Please <a href="${env.JENKINS_URL}${env.JOB_NAME}${env.BUILD_NUMBER}">approve me</a>!
 		   """
-		   def deploymentDelay = input id: 'Deploy'
+		   
+	  	   input message: 'Ready?', token: tok
 			
 
                 	}
