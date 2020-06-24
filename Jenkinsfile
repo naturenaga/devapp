@@ -30,7 +30,7 @@ pipeline {
 			
 	           def tok = UUID.randomUUID().toString()
 		   mail to: 'naturenaga.j@gmail.com', subject: 'Ready to roll?', mimeType: 'text/html', body: """
-	  	   Please <a href="${env.JENKINS_URL}pipeline-inputs/proceed">approve me</a>!
+	  	   Please <a href="${env.JENKINS_URL}pipeline-inputs/${tok}/proceed">approve me</a>!
 		   """
 		   input message: 'Ready?', token: tok
 			
