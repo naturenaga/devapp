@@ -41,7 +41,7 @@ pipeline {
    	 	   subject: "Job '${env.JOB_BASE_NAME}' (${env.BUILD_NUMBER}) is waiting for input",
    		   body: "Please go to console output of ${env.BUILD_URL}console to approve or Reject.");
 	 	   def userInput = input(id: 'userInput', message: 'Job A Failed do you want to build Job B?', ok: 'Yes', submitter: 'rkivisto,admin', parameters: [choice(choices: ['0'], description: 'Hours to delay deployment?', name: 'deploymentDelay')])
-		   sleep time: deploymentDelay.toInteger(), unit: 'HOURS'
+		   sleep time: userInput.toInteger(), unit: 'HOURS'
 		   
 			}
             	}
