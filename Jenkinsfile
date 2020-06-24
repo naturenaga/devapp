@@ -34,7 +34,7 @@ pipeline {
 		   //"""
 		   //input message: 'Ready?', token: tok
 			
-		 mail to: 'naturenaga.j@gmail.com', subject: 'Ready to roll?', mimeType: 'text/html', body: """
+		 body: """
 		 Please <a href="${env.BUILD_URL}input/">approve me</a>!
 		 """, ...
                 	}
