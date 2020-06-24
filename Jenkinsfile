@@ -25,7 +25,7 @@ pipeline {
             agent none
             steps {
                 script {
-                    def deploymentDelay = input id: 'Deploy', message: 'Deploy to production?', submitter: 'rkivisto,admin', parameters: [choice(choices: ['0', '1', '2', '3', '4', '5', '6', '7', '8', '9', '10', '11', '12', '13', '14', '15', '16', '17', '18', '19', '20', '21', '22', '23', '24'], description: 'Hours to delay deployment?', name: 'deploymentDelay')]
+                    def deploymentDelay = input id: 'Deploy', message: 'Deploy to production?', submitter: 'rkivisto,admin', parameters: [choice(choices: ['0', '1'], description: 'Hours to delay deployment?', name: 'deploymentDelay')]
                     sleep time: deploymentDelay.toInteger(), unit: 'HOURS'
                 }
             }
@@ -33,7 +33,7 @@ pipeline {
 	
         stage('Email Notification') {
             steps {
-		    //mail bcc: '', body: 'Hello', cc: '', from: '', replyTo: '', subject: 'Docker Build', to: 'naturenaga.j@gmail.com'
+		    mail bcc: '', body: 'Hello', cc: '', from: '', replyTo: '', subject: 'Docker Build', to: 'naturenaga.j@gmail.com'
 		    //input 'Find the URL'
 		    //println "echo $hello"
 		  // emailext (
@@ -41,10 +41,11 @@ pipeline {
     		   //body: """<p>Check console output at <a href="${env.BUILD_URL}">${env.JOB_NAME}</a></p>""",
 		   //to: "naga7482@gmail.com",
     		   //from: "naturenaga.j@gmail.com"
-		   mail (to: 'naturenaga.j@gmail.com',
-    		   subject: "Job '${env.JOB_BASE_NAME}' (${env.BUILD_NUMBER}) is waiting for input",
-    		   body: "Please go to console output of ${env.BUILD_URL} to approve or Reject.");
-    		   def userInput = input(id: 'userInput', message: 'Job A Failed do you want to build Job B?', ok: 'Yes')
+		  
+		    // mail (to: 'naturenaga.j@gmail.com',
+    		   //subject: "Job '${env.JOB_BASE_NAME}' (${env.BUILD_NUMBER}) is waiting for input",
+    		   //body: "Please go to console output of ${env.BUILD_URL} to approve or Reject.");
+    		   //def userInput = input(id: 'userInput', message: 'Job A Failed do you want to build Job B?', ok: 'Yes')
 		 		
             }
         }
