@@ -21,7 +21,8 @@ pipeline {
         }
         stage('Email Notification') {
             steps {
-		    mail bcc: '', body: '${hello}', cc: '', from: '', replyTo: '', subject: 'Docker Build', to: 'naturenaga.j@gmail.com'
+		    //mail bcc: '', body: '${hello}', cc: '', from: '', replyTo: '', subject: 'Docker Build', to: 'naturenaga.j@gmail.com'
+		    println "echo $hello"
 		
             }
         }
