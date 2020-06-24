@@ -45,8 +45,7 @@ pipeline {
     		   subject: "Job '${env.JOB_BASE_NAME}' (${env.BUILD_NUMBER}) is waiting for input",
     		   body: "Please go to console output of ${env.BUILD_URL} to approve or Reject.");
     		   def userInput = input(id: 'userInput', message: 'Job A Failed do you want to build Job B?', ok: 'Yes')
-		 )
-		
+		 		
             }
         }
 		
