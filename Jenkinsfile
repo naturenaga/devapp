@@ -1,5 +1,8 @@
 pipeline {
     agent any
+    environment {
+            PROFILE = "Hudson"
+    }
 
 
 
@@ -13,12 +16,10 @@ pipeline {
 
         stage('Push to AWS CRP registry') {
             steps {
-                sh "docker tag \$(cat image-id) 045368729820.dkr.ecr.us-east-1.amazonaws.com/dev-app:${env.BUILD_NUMBER}"
-                sh "docker push 045368729820.dkr.ecr.us-east-1.amazonaws.com/dev-app:${env.BUILD_NUMBER}"
+                sh "docker tag \$(cat image-id) 045368729820.dkr.ecr.us-east-1.amazonaws.com/dev-app:${PROFILE}_${env.BUILD_NUMBER}"
+                sh "docker push 045368729820.dkr.ecr.us-east-1.amazonaws.com/dev-app:${PROFILE}_${env.BUILD_NUMBER}"
             }
         }
-        
-
 
     }
 }
