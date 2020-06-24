@@ -33,7 +33,7 @@ pipeline {
 	  	   //Please <a href="${env.JENKINS_URL}pipeline-inputs/${tok}/proceed">approve me</a>!
 		   //"""
 		   //input message: 'Ready?', token: tok
-		    def deploymentDelay = input id: 'Deploy', message: 'Deploy to production?', submitter: 'rkivisto,admin', description: 'Hours to delay deployment?')]
+		    def deploymentDelay = input id: 'Deploy', message: 'Deploy to production?', submitter: 'rkivisto,admin', description: 'Hours to delay deployment?'
                     
 		   
 
