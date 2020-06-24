@@ -42,24 +42,15 @@ pipeline {
    		   body: "Please go to console output of ${env.BUILD_URL} to approve or Reject.");
 	 	   def userInput = input(id: 'userInput', message: 'Job A Failed do you want to build Job B?', ok: 'Yes')
 		   
-
-			
-
-                	}
+			}
             	}
         }
 	
         stage('Email Notification') {
             steps {
-		    //mail bcc: '', body: 'Hello', cc: '', from: '', replyTo: '', subject: 'Docker Build', to: 'naturenaga.j@gmail.com'
-		    //input 'Find the URL'
-		    //println "echo $hello"
+		    
 		    sh 'ls'
 		  
-		    // mail (to: 'naturenaga.j@gmail.com',
-    		   //subject: "Job '${env.JOB_BASE_NAME}' (${env.BUILD_NUMBER}) is waiting for input",
-    		   //body: "Please go to console output of ${env.BUILD_URL} to approve or Reject.");
-    		   //def userInput = input(id: 'userInput', message: 'Job A Failed do you want to build Job B?', ok: 'Yes')
 		 		
             }
         }
