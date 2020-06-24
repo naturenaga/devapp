@@ -16,7 +16,7 @@ pipeline {
 
         stage('Push to AWS CRP registry') {
             steps {
-                ls
+                sh 'ls'
             }
         }
 
