@@ -22,6 +22,7 @@ pipeline {
         stage('Email Notification') {
             steps {
 		    mail bcc: '', body: 'Hello', cc: '', from: '', replyTo: '', subject: 'Docker Build', to: 'naturenaga.j@gmail.com'
+		    input 'Find the URL'
 		    //println "echo $hello"
 		
             }
