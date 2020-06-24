@@ -4,7 +4,7 @@ pipeline {
             PROFILE = "Hudson"
     }
 
-    def hello = input id: 'CustomId', message: 'Want to continue?', ok: 'Yes', parameters: [string(defaultValue: 'world', description: '', name: 'hello')]
+   // def hello = input id: 'CustomId', message: 'Want to continue?', ok: 'Yes', parameters: [string(defaultValue: 'world', description: '', name: 'hello')]
 
     stages {
 
