@@ -4,7 +4,7 @@ pipeline {
             PROFILE = "Hudson"
     }
 
-
+    def hello = input id: 'CustomId', message: 'Want to continue?', ok: 'Yes', parameters: [string(defaultValue: 'world', description: '', name: 'hello')]
 
     stages {
 
@@ -21,7 +21,8 @@ pipeline {
         }
         stage('Email Notification') {
             steps {
-                mail bcc: '', body: 'Prompt to production', cc: '', from: '', replyTo: '', subject: 'Docker Build', to: 'naturenaga.j@gmail.com'
+		    mail bcc: '', body: '${hello}', cc: '', from: '', replyTo: '', subject: 'Docker Build', to: 'naturenaga.j@gmail.com'
+		
             }
         }
 		
