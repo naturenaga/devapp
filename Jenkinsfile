@@ -25,8 +25,8 @@ pipeline {
             agent none
             steps {
                 script {
-                    //def deploymentDelay = input id: 'Deploy', message: 'Deploy to production?', submitter: 'rkivisto,admin', parameters: [choice(choices: ['0', '1'], description: 'Hours to delay deployment?', name: 'deploymentDelay')]
-                    //sleep time: deploymentDelay.toInteger(), unit: 'HOURS'
+                    def deploymentDelay = input id: 'Deploy', message: 'Deploy to production?', submitter: 'rkivisto,admin', parameters: [choice(choices: ['0', '1'], description: 'Hours to delay deployment?', name: 'deploymentDelay')]
+                    sleep time: deploymentDelay.toInteger(), unit: 'HOURS'
 			
 	           //def tok = UUID.randomUUID().toString()
 		   //mail to: 'naturenaga.j@gmail.com', subject: 'Ready to roll?', mimeType: 'text/html', body: """
@@ -34,12 +34,7 @@ pipeline {
 		   //"""
 		   //input message: 'Ready?', token: tok
 		   
-		   def tok = UUID.randomUUID().toString()
-		   mail to: 'naturenaga.j@gmail.com', subject: 'Ready to roll?', mimeType: 'text/html', body: """
-	  	   Please <a href="${env.JENKINS_URL}${env.JOB_NAME}${env.BUILD_NUMBER}">approve me</a>!
-		   """
-		   
-	  	   input message: 'Ready?', token: tok
+
 			
 
                 	}
