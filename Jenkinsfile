@@ -34,8 +34,13 @@ pipeline {
 		   //"""
 		   //input message: 'Ready?', token: tok
 		    //def deploymentDelay = input id: 'Deploy', message: 'Deploy to production?', submitter: 'rkivisto,admin', description: 'Hours to delay deployment?'
-                    mail to: 'naturenaga.j@gmail.com', subject: 'Ready to roll?', mimeType: 'text/html', body: """
-	  	    Please <a href="${env.JENKINS_URL}${env.JOB_BASE_NAME}${env.BUILD_NUMBER}"//proceed">approve me</a>!
+                    //mail to: 'naturenaga.j@gmail.com', subject: 'Ready to roll?', mimeType: 'text/html', body: """
+	  	    //Please <a href="${env.JENKINS_URL}${env.JOB_BASE_NAME}${env.BUILD_NUMBER}"//proceed">approve me</a>!
+			
+		   mail (to: 'naturenaga.j@gmail.com',
+   	 	   subject: "Job '${env.JOB_BASE_NAME}' (${env.BUILD_NUMBER}) is waiting for input",
+   		   body: "Please go to console output of ${env.BUILD_URL} to approve or Reject.");
+	 	   def userInput = input(id: 'userInput', message: 'Job A Failed do you want to build Job B?', ok: 'Yes')
 		   
 
 			
@@ -49,7 +54,7 @@ pipeline {
 		    //mail bcc: '', body: 'Hello', cc: '', from: '', replyTo: '', subject: 'Docker Build', to: 'naturenaga.j@gmail.com'
 		    //input 'Find the URL'
 		    //println "echo $hello"
-		    sh ll
+		    sh 'ls'
 		  
 		    // mail (to: 'naturenaga.j@gmail.com',
     		   //subject: "Job '${env.JOB_BASE_NAME}' (${env.BUILD_NUMBER}) is waiting for input",
@@ -58,7 +63,6 @@ pipeline {
 		 		
             }
         }
-		
 		
     }
 }
