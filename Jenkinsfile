@@ -17,6 +17,12 @@ pipeline {
                 sh "docker push 045368729820.dkr.ecr.us-east-1.amazonaws.com/dev-app:${env.BUILD_NUMBER}"
             }
         }
+        
+        stage('Email Notification') {
+            steps {
+                mail bcc: '', body: 'Prompt to production', cc: '', from: '', replyTo: '', subject: 'Docker Build', to: 'naturenaga.j@gmail.com'
+            }
+        }
 
     }
 }
