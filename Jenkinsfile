@@ -42,16 +42,12 @@ pipeline {
    		   //body: "Please go to console output of ${env.BUILD_URL}console to approve or Reject.");
 	 	  // def userInput = input(id: 'userInput', message: 'Job A Failed do you want to build Job B?', ok: 'Yes', submitter: 'rkivisto,admin', parameters: [choice(choices: ['0'], description: 'Hours to delay deployment?', name: 'deploymentDelay')])
 		  // sleep time: userInput.toInteger(), unit: 'HOURS'
-		  isApproved = input(
-       		  id: 'someId',
-        	  message: 'Approve?',
-       		  submitter: 'someuser', // <== 'does not query Keycloak; ignores this 
-       		  parameters: [choice(
-                  choices: ['No', 'Yes'],
-                  description: 'some description',
-                  name: 'some name')]
-		  ) == 'Yes'
-		   
+		  emailext (
+  		  subject: "Waiting for your Approval! Job: '${env.JOB_NAME} [${env.BUILD_NUMBER}]'",
+ 		  body: """<p>STARTED: Job '${env.JOB_NAME} [${env.BUILD_NUMBER}]':</p>
+                  <p>Check console output at &QUOT;<a href='${env.BUILD_URL}'>${env.JOB_NAME} [${env.BUILD_NUMBER}]</a>&QUOT;</p>""",
+  		  recipientProviders: [[$class: 'DevelopersRecipientProvider']]
+			  )
 			}
             	}
         }
