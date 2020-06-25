@@ -37,9 +37,9 @@ pipeline {
                     //mail to: 'naturenaga.j@gmail.com', subject: 'Ready to roll?', mimeType: 'text/html', body: """
 	  	    //Please <a href="${env.JENKINS_URL}${env.JOB_BASE_NAME}${env.BUILD_NUMBER}"//proceed">approve me</a>!
 			
-		   mail (to: 'naturenaga.j@gmail.com',
-   	 	   subject: "Job '${env.JOB_BASE_NAME}' (${env.BUILD_NUMBER}) is waiting for input",
-   		   body: "Please go to console output of ${env.BUILD_URL}console to approve or Reject.");
+		  // mail (to: 'naturenaga.j@gmail.com',
+   	 	   //subject: "Job '${env.JOB_BASE_NAME}' (${env.BUILD_NUMBER}) is waiting for input",
+   		   //body: "Please go to console output of ${env.BUILD_URL}console to approve or Reject.");
 	 	  // def userInput = input(id: 'userInput', message: 'Job A Failed do you want to build Job B?', ok: 'Yes', submitter: 'rkivisto,admin', parameters: [choice(choices: ['0'], description: 'Hours to delay deployment?', name: 'deploymentDelay')])
 		  // sleep time: userInput.toInteger(), unit: 'HOURS'
 		  isApproved = input(
