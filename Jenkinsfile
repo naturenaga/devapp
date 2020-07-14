@@ -17,8 +17,7 @@ pipeline {
         stage('Push to AWS ERP registry') {
             steps {
                 sh 'ls'
-		sh $(aws ecr get-login --no-include-email --region us-east-1)
-                sh "docker tag \$(cat image-id) 045368729820.dkr.ecr.us-east-1.amazonaws.com/dev-app:${PROFILE}_${env.BUILD_NUMBER}"
+		sh "docker tag \$(cat image-id) 045368729820.dkr.ecr.us-east-1.amazonaws.com/dev-app:${PROFILE}_${env.BUILD_NUMBER}"
                 sh "docker push 045368729820.dkr.ecr.us-east-1.amazonaws.com/dev-app:${PROFILE}_${env.BUILD_NUMBER}"
             }
         }
