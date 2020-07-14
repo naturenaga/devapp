@@ -21,11 +21,8 @@ pipeline {
                 sh "docker push 045368729820.dkr.ecr.us-east-1.amazonaws.com/dev-app:${PROFILE}_${env.BUILD_NUMBER}"
             }
         }
-	 
-       
-        
-
-        }
+    
+    
 		
     }
 }
