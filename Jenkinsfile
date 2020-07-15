@@ -9,11 +9,11 @@ pipeline {
 
     stages {
 
-        stage('build docker image') {
-            steps {
-                sh "docker build --no-cache --iidfile image-id ."
-            }
-        }
+        //stage('build docker image') {
+          //  steps {
+         //       sh "docker build --no-cache --iidfile image-id ."
+         //   }
+       // }
 
         stage('Push to AWS ERP registry') {
             steps {
@@ -21,6 +21,8 @@ pipeline {
                 sh 'ls'
 		//sh "$(aws ecr get-login --no-include-email --region us-east-1)"
 		sh "${env_path}/aws ecr get-login-password --region us-east-1 | docker login --username AWS --password-stdin 045368729820.dkr.ecr.us-east-1.amazonaws.com"
+		//sh "docker build -t ${SIA_NAME}/${CAT} ."	
+		sh "docker build --no-cache --iidfile image-id ."	    
 		sh "docker tag \$(cat image-id) 045368729820.dkr.ecr.us-east-1.amazonaws.com/dev-app:${PROFILE}_${env.BUILD_NUMBER}"
                 sh "docker push 045368729820.dkr.ecr.us-east-1.amazonaws.com/dev-app:${PROFILE}_${env.BUILD_NUMBER}"
 		    }
@@ -31,10 +33,10 @@ pipeline {
 		sh "cd tfvarsint/"
                 sh "ls -l"
 		sh "export AWS_PROFILE=int"
-		    sh "AWS_PROFILE=int ${env_path}/terraform init"
-		//sh "AWS_PROFILE=int terraform validate -var-file=var.tfvars"
-		//sh "AWS_PROFILE=int terraform plan -var-file=var.tfvars"
-		//sh "AWS_PROFILE=int terraform apply -var-file=var.tfvars --auto-approve"
+		sh "AWS_PROFILE=int ${env_path}/terraform init"
+		sh "AWS_PROFILE=int ${env_path}/terraform validate -var-file=var.tfvars"
+		sh "AWS_PROFILE=int ${env_path}/terraform plan -var-file=var.tfvars"
+		sh "AWS_PROFILE=int ${env_path}/terraform apply -var-file=var.tfvars --auto-approve"
 
             }
         }		
