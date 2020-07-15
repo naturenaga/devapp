@@ -1,9 +1,9 @@
-sia_name = "jnr"
-sia_cat = "app"
+PROFILE = "Hudson"
+#sia_cat = "app"
 #imageversion = "1.0"
-ecr_url = "908248058287.dkr.ecr.ap-south-1.amazonaws.com/nginxrepo"
+ecr_url = "045368729820.dkr.ecr.us-east-1.amazonaws.com/dev-app"
 container_target_group_arn = "arn:aws:elasticloadbalancing:ap-south-1:908248058287:targetgroup/jnrtargetgrp/6fc9886387856935"
 container_host_port = "0" #Don't Change
 container_port = "80"
 container_cpu_limit = "256" #multiples of 256
-conatiner_memory_limit = "2048" #Numbers referes MB
+conatiner_memory_limit = "256" #Numbers referes MB
