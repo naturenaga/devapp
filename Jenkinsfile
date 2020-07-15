@@ -30,7 +30,7 @@ pipeline {
 		sh "cd tfvarsint/"
                 sh "ls -l"
 		sh "export AWS_PROFILE=int"
-		sh "AWS_PROFILE=int terraform init"
+		sh "AWS_PROFILE=int /usr/local/bin/terraform init"
 		//sh "AWS_PROFILE=int terraform validate -var-file=var.tfvars"
 		//sh "AWS_PROFILE=int terraform plan -var-file=var.tfvars"
 		//sh "AWS_PROFILE=int terraform apply -var-file=var.tfvars --auto-approve"
