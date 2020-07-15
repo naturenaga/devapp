@@ -15,7 +15,7 @@ pipeline {
          //   }
        // }
 
-        stage('Push to AWS ERP registry') {
+        stage('Build and Push the image in to AWS ECR Repo') {
             steps {
 		    withAWS(credentials: 'ecr_access_credential', region: 'us-east-1') {
                 sh 'ls'
