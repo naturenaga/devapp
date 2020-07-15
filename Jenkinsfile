@@ -14,52 +14,31 @@ pipeline {
             }
         }
 
-        stage('Push to AWS CRP registry') {
+        stage('Push to AWS ERP registry') {
             steps {
+		    withAWS(credentials: 'ecr_access_credential', region: 'us-east-1') {
                 sh 'ls'
+		//sh "$(aws ecr get-login --no-include-email --region us-east-1)"
+		sh "/usr/local/bin/aws ecr get-login-password --region us-east-1 | docker login --username AWS --password-stdin 045368729820.dkr.ecr.us-east-1.amazonaws.com"
+		sh "docker tag \$(cat image-id) 045368729820.dkr.ecr.us-east-1.amazonaws.com/dev-app:${PROFILE}_${env.BUILD_NUMBER}"
+                sh "docker push 045368729820.dkr.ecr.us-east-1.amazonaws.com/dev-app:${PROFILE}_${env.BUILD_NUMBER}"
+		    }
             }
         }
-	 
-        stage('Approval') {
-            // no agent, so executors are not used up when waiting for approvals
-            agent none
+	stage('Dev Deploy') {
             steps {
-                script {
-                   // def deploymentDelay = input id: 'Deploy', message: 'Deploy to production?', submitter: 'rkivisto,admin', parameters: [choice(choices: ['0', '1'], description: 'Hours to delay deployment?', name: 'deploymentDelay')]
-                    //sleep time: deploymentDelay.toInteger(), unit: 'HOURS'
-			
-	           //def tok = UUID.randomUUID().toString()
-		   //mail to: 'naturenaga.j@gmail.com', subject: 'Ready to roll?', mimeType: 'text/html', body: """
-	  	   //Please <a href="${env.JENKINS_URL}pipeline-inputs/${tok}/proceed">approve me</a>!
-		   //"""
-		   //input message: 'Ready?', token: tok
-		    //def deploymentDelay = input id: 'Deploy', message: 'Deploy to production?', submitter: 'rkivisto,admin', description: 'Hours to delay deployment?'
-                    //mail to: 'naturenaga.j@gmail.com', subject: 'Ready to roll?', mimeType: 'text/html', body: """
-	  	    //Please <a href="${env.JENKINS_URL}${env.JOB_BASE_NAME}${env.BUILD_NUMBER}"//proceed">approve me</a>!
-			
-		  // mail (to: 'naturenaga.j@gmail.com',
-   	 	   //subject: "Job '${env.JOB_BASE_NAME}' (${env.BUILD_NUMBER}) is waiting for input",
-   		   //body: "Please go to console output of ${env.BUILD_URL}console to approve or Reject.");
-	 	  // def userInput = input(id: 'userInput', message: 'Job A Failed do you want to build Job B?', ok: 'Yes', submitter: 'rkivisto,admin', parameters: [choice(choices: ['0'], description: 'Hours to delay deployment?', name: 'deploymentDelay')])
-		  // sleep time: userInput.toInteger(), unit: 'HOURS'
-		  emailext (
-  		  subject: "Waiting for your Approval! Job: '${env.JOB_NAME} [${env.BUILD_NUMBER}]'",
- 		  body: """<p>STARTED: Job '${env.JOB_NAME} [${env.BUILD_NUMBER}]':</p>
-                  <p>Check console output at &QUOT;<a href='${env.BUILD_URL}'>${env.JOB_NAME} [${env.BUILD_NUMBER}]</a>&QUOT;</p>""",
-  		  to: 'naturenaga.j@gmail.com'
-			  )
-			}
-            	}
-        }
-	
-        stage('Email Notification') {
-            steps {
-		    
-		    sh 'ls'
-		  
-		 		
+		sh "cd tfvarsint/"
+                sh "ls -l"
+		sh "export AWS_PROFILE=int"
+		sh "AWS_PROFILE=int terraform init"
+		//sh "AWS_PROFILE=int terraform validate -var-file=var.tfvars"
+		//sh "AWS_PROFILE=int terraform plan -var-file=var.tfvars"
+		//sh "AWS_PROFILE=int terraform apply -var-file=var.tfvars --auto-approve"
+
             }
-        }
+        }		
+    
+    
 		
     }
 }
